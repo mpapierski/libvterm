@@ -373,8 +373,10 @@ static int scrollrect(VTermRect rect, int downward, int rightward, void *user)
     }
   }
   else {
+#ifdef DEBUG
     fprintf(stderr, "TODO: Just flush and redo damaged=" STRFrect " rect=" STRFrect "\n",
         ARGSrect(screen->damaged), ARGSrect(rect));
+#endif
   }
 
   return 1;
