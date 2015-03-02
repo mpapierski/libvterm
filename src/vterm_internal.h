@@ -11,6 +11,11 @@
 # define INTERNAL
 #endif
 
+#define DEBUG_LOG(...)
+#ifdef DEBUG
+# define DEBUG_LOG(...) fprintf(stderr, __VA_ARGS__)
+#endif
+
 typedef struct VTermEncoding VTermEncoding;
 
 typedef struct {
