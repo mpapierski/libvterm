@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 2.6)
 project (libvterm C)
 
+option (LIBVTERM_TESTS "Build libvterm tests" OFF)
+
 find_package (Perl REQUIRED)
 
 include_directories (
@@ -30,3 +32,8 @@ add_library (vterm
     src/encoding/uk.inc
     src/encoding/DECdrawing.inc
     )
+
+if (LIBVTERM_TESTS)
+    enable_testing ()
+    add_subdirectory (t)
+endif ()
