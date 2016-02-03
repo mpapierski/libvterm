@@ -34,6 +34,12 @@ add_library (vterm
     src/encoding/DECdrawing.inc
     )
 
+install (TARGETS vterm
+    DESTINATION lib)
+
+install (FILES include/vterm.h include/vterm_keycodes.h
+    DESTINATION include)
+
 if (LIBVTERM_BIN)
     add_subdirectory (bin)
 endif ()
