@@ -20,6 +20,8 @@ add_custom_command (OUTPUT src/encoding/uk.inc
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     VERBATIM)
 
+set (CMAKE_C_FLAGS "--std=c99")
+
 add_library (vterm
     src/encoding.c
     src/keyboard.c
