@@ -8,19 +8,28 @@ find_package (Perl REQUIRED)
 
 include_directories (
     include/
+    # Some generated files are located here
+    ${CMAKE_CURRENT_BINARY_DIR}
     )
 
-add_custom_command (OUTPUT src/encoding/DECdrawing.inc
-    COMMAND ${PERL_EXECUTABLE} -CSD tbl2inc_c.pl src/encoding/DECdrawing.tbl > src/encoding/DECdrawing.inc
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    VERBATIM)
-
-add_custom_command (OUTPUT src/encoding/uk.inc
-    COMMAND ${PERL_EXECUTABLE} -CSD tbl2inc_c.pl src/encoding/uk.tbl > src/encoding/uk.inc
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    VERBATIM)
 
 set (CMAKE_C_FLAGS "--std=c99")
+
+# We create the output in fake "encoding" directory just to save on patching
+# source code.
+set (encoding_DIR ${CMAKE_CURRENT_BINARY_DIR}/encoding)
+
+add_custom_command (OUTPUT ${encoding_DIR}/DECdrawing.inc
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${encoding_DIR}
+    COMMAND ${PERL_EXECUTABLE} -CSD tbl2inc_c.pl src/encoding/DECdrawing.tbl > ${encoding_DIR}/DECdrawing.inc
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    VERBATIM)
+
+add_custom_command (OUTPUT ${encoding_DIR}/uk.inc
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${encoding_DIR}
+    COMMAND ${PERL_EXECUTABLE} -CSD tbl2inc_c.pl src/encoding/uk.tbl > ${encoding_DIR}/uk.inc
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    VERBATIM)
 
 add_library (vterm
     src/encoding.c
@@ -32,8 +41,8 @@ add_library (vterm
     src/state.c
     src/unicode.c
     src/vterm.c
-    src/encoding/uk.inc
-    src/encoding/DECdrawing.inc
+    ${encoding_DIR}/DECdrawing.inc
+    ${encoding_DIR}/uk.inc
     )
 
 install (TARGETS vterm
