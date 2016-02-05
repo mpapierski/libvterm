@@ -1,6 +1,9 @@
 cmake_minimum_required (VERSION 2.6)
 project (libvterm C)
 
+set (VERSION_LOWER 0)
+set (VERSION_UPPER 0)
+
 option (LIBVTERM_TESTS "Build libvterm tests" OFF)
 option (LIBVTERM_BIN "Build executables" OFF)
 
@@ -48,11 +51,18 @@ add_library (vterm
     ${encoding_DIR}/uk.inc
     )
 
+configure_file (${CMAKE_CURRENT_SOURCE_DIR}/vterm.pc.in
+    ${CMAKE_CURRENT_BINARY_DIR}/vterm.pc
+    @ONLY)
+
 install (TARGETS vterm
     DESTINATION lib)
 
 install (FILES include/vterm.h include/vterm_keycodes.h
     DESTINATION include)
+
+install (FILES ${CMAKE_CURRENT_BINARY_DIR}/vterm.pc
+    DESTINATION lib/pkgconfig)
 
 if (LIBVTERM_BIN)
     add_subdirectory (bin)
