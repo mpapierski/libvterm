@@ -12,6 +12,9 @@ include_directories (
     ${CMAKE_CURRENT_BINARY_DIR}
     )
 
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_definitions (-DDEBUG)
+endif ()
 
 set (CMAKE_C_FLAGS "--std=c99")
 
