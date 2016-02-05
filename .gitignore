@@ -19,3 +19,6 @@ bin/vterm-ctrl
 bin/vterm-dump
 t/CTestTestfile.cmake
 t/harness
+
+# Misc
+*.bc
