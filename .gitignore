@@ -1,0 +1,18 @@
+# Main files
+
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+*.inc
+libvterm.a
+vterm.pc
+
+# Tests
+
+CTestTestfile.cmake
+bin/unterm
+bin/vterm-ctrl
+bin/vterm-dump
+t/CTestTestfile.cmake
+t/harness
