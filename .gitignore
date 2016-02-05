@@ -1,3 +1,6 @@
+# If you like out of source builds
+build/
+
 # Main files
 
 CMakeCache.txt
